@@ -46,6 +46,30 @@ The project was developed mainly in **Python**, using:
 * Scikit-learn
 * Custom Self-Organizing Map implementation
 * FITS/astronomical data analysis tools
+
+## `make_simullc.py`
+
+Generates synthetic light curves for different classes of variable stars.
+
+- Simulates RR Lyrae, Classical and Type II Cepheids, eclipsing binaries and microlensing events.
+- Uses Fourier models and analytical profiles to reproduce different light-curve morphologies.
+- Randomizes physical and photometric parameters such as period, amplitude, baseline magnitude and phase shift.
+- Adds Gaussian photometric noise to simulate observational uncertainties.
+- Generates 1000 light curves for each class and saves them as individual `.txt` files.
+- Combines the simulated data into a shuffled CSV dataset used as input for the SOM classification.
+
+## `main_lightcurve_SOM.py`
+
+Main script for the classification of variable stars using a Self-Organizing Map (SOM).
+
+- Loads simulated and DECam light-curve datasets and splits the simulated data into training, validation and test sets.
+- Trains a 25×25 SOM with GPU support and optional early stopping, or loads a previously trained map.
+- Generates U-Matrix maps to visualize the distribution of the different stellar classes.
+- Builds probability maps for each class and uses them to classify new light curves according to their Best Matching Unit (BMU).
+- Applies the trained SOM to the DECam dataset.
+- Evaluates the classification using completeness, purity, TP, FP and FN.
+- Produces plots of representative simulated and DECam light curves.
+
 ## Results
 
 The SOM successfully identified several meaningful structures in the dataset, showing particularly good performance for:
