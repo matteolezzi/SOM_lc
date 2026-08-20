@@ -47,7 +47,7 @@ The project was developed mainly in **Python**, using:
 * Custom Self-Organizing Map implementation
 * FITS/astronomical data analysis tools
 
-## `make_simullc.py`
+## `make_simul_lc.py`
 
 Generates synthetic light curves for different classes of variable stars.
 
