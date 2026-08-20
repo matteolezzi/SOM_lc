@@ -58,6 +58,8 @@ Generates synthetic light curves for different classes of variable stars.
 - Generates 1000 light curves for each class and saves them as individual `.txt` files.
 - Combines the simulated data into a shuffled CSV dataset used as input for the SOM classification.
 
+![Simulated light curves](RR_lyrae_AB.png)
+
 ## `main_lightcurve_SOM.py`
 
 Main script for the classification of variable stars using a Self-Organizing Map (SOM).
