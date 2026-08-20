@@ -45,15 +45,6 @@ Modello: Variazione continua modellata tramite una funzione coseno al quadrato p
 - mag: Magnitudine apparente simulata con rumore gaussiano per simulare l'errore strumentale.
 - err: Incertezza fotometrica stimata per ogni punto (in questa simulazione, un array costante pari a mag_err).
 - stats: Contiene i parametri utilizzati dalla simulazione e generati casualmente (es. Periodo P, Ampiezza Amp, Magnitudine baseline Mag, Shift di fase Phi0).
-
-
-
-date: 20 Feb 2026
-    : 8  Apr 2026 (update)
-
-
-author: A. Franco
-
 '''
 
 
