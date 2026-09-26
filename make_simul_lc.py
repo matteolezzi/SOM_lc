@@ -113,6 +113,8 @@ def simulate_rr_lyrae_ab(n_points):
     t = generate_observation_times(n_points, duration_days=15)
     phase = (t % period) / period # fase
     shifted_phase = (phase + phase_shift) % 1.0 # shifto la fase di phase_shift
+    #visto che deve essere sempre tra 0 e 1 prendo il resto della divisione con 1
+    #tipo 1.3, il resto è 0.3 
     
     clean_mag = baseline_mag + fourier_lightcurve(shifted_phase, A_coeffs, Phi_coeffs, amplitude)
     stats = {'P': period, 'Amp': amplitude, 'Mag': baseline_mag, 'Phi0': phase_shift}
