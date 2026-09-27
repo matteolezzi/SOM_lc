@@ -414,59 +414,6 @@ decam_predictions, decam_probs = classify_with_probability_maps(
 # ups e' folding prodotto dalla rete neurale upsilon
 # m2 e m3 sono i due metodi di folding,
 # ls e' lombe scargle
-"""
-def compute_completeness_purity(y_true, y_pred, labels, probs, prb_thr):
-
-    Calcola completezza e purezza per ogni classe.
-
-    Definizioni
-    -----------
-    Completezza (recall)  per classe C:
-        = TP_C / (TP_C + FN_C)
-        = (oggetti di classe C classificati correttamente) /
-          (tutti gli oggetti veri di classe C)
-
-    Purezza (precision)  per classe C:
-        = TP_C / (TP_C + FP_C)
-        = (oggetti di classe C classificati correttamente) /
-          (tutti gli oggetti classificati come classe C)
-
-    Parametri
-    ----------
-    y_true : array-like di label veri
-    y_pred : array-like di label predetti
-    labels : lista ordinata di tutti i label
-
-    Ritorna
-    -------
-    results : dict  { label: {'completezza': float, 'purezza': float,
-                               'TP': int, 'FP': int, 'FN': int} }
-
-
-    y_true = np.asarray(y_true)[np.array(probs) > prb_thr]
-    y_pred = np.asarray(y_pred)[np.array(probs) > prb_thr]
-
-    results = {}
-
-    for cls in labels:
-        TP = np.sum((y_true == cls) & (y_pred == cls))
-        FP = np.sum((y_true != cls) & (y_pred == cls))
-        FN = np.sum((y_true == cls) & (y_pred != cls))
-
-        completezza = TP / (TP + FN) if (TP + FN) > 0 else 0.0
-        purezza     = TP / (TP + FP) if (TP + FP) > 0 else 0.0
-
-        results[cls] = {
-            'completezza': completezza,
-            'purezza':     purezza,
-            'TP': int(TP),
-            'FP': int(FP),
-            'FN': int(FN),
-        }
-
-    return results
-"""
-
 
 def compute_completeness_purity(y_true, y_pred, labels, probs, prb_thr):
     """
@@ -610,63 +557,6 @@ for target_class in ["RRc", "Cep"]:
 
     plt.close()
 
-
-# ============================================================
-# PLOT DI 5 RRc E 5 CEPHEIDI DA DECam
-# LE CLASSI SONO QUELLE PREDTTE DALLE PROBABILITY MAPS
-# ============================================================
-
-decam_predictions = np.array(decam_predictions)
-"""
-for target_class in ["RRc", "Cep", "EB", "EA", "EW"]:
-
-    indices = np.where(decam_predictions == target_class)[0]
-
-    if len(indices) == 0:
-        print(f"Nessun oggetto DECam classificato come {target_class}")
-        continue
-
-    n_examples = min(5, len(indices))
-    selected = rng.choice(indices, size=n_examples, replace=False)
-
-    fig, axes = plt.subplots(
-        n_examples,
-        1,
-        figsize=(10, 2.5 * n_examples)
-    )
-
-    if n_examples == 1:
-        axes = [axes]
-
-    for ax, idx in zip(axes, selected):
-
-        phase = data_train[idx][:N_MAG_POINTS]
-        mag = data_train[idx][N_MAG_POINTS:N_MAG_POINTS + 30]
-
-        ax.plot(
-            phase,
-            mag,
-            marker='.',
-            linewidth=1
-        )
-        ax.set_title(
-            f"{target_class} - DECam #{decam_probs[idx]}",
-            fontsize=10
-        )
-
-        ax.set_xlabel("Point")
-        ax.set_ylabel("Mag")
-        ax.grid(alpha=0.3)
-        ax.invert_yaxis()
-
-    plt.tight_layout()
-    plt.savefig(
-        f"{target_class}_decam_examples.png",
-        dpi=300,
-        bbox_inches="tight"
-    )
-    plt.close()
-"""
 
 # ============================================================
 # PLOT DI RRab, RRc, CEP, EA, EB, EW DA DECam
