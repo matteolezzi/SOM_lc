@@ -156,7 +156,6 @@ def plot_umat_map_target(self,
                          markers: list,
                          colors,
                          output: str,
-                         mask_flag: bool = False,
                          mm: list = [],
                          mode: str = 'sum') -> None:
 
@@ -177,64 +176,6 @@ def plot_umat_map_target(self,
     colorbar.ax.tick_params(labelsize=30)
 
     # Disegno dei marker sulle BMU
-    if mask_flag:
-
-        for sample_idx, sample in enumerate(dataset_copy):
-
-            sample_mask = mask_copy[sample_idx]
-
-            bmu = self.winning_neuron(
-                sample,
-                mask_flag=True,
-                mm=sample_mask
-            )
-
-            plt.plot(
-                bmu[0] + 0.5,
-                bmu[1] + 0.5,
-                markers[target_values[sample_idx] - 1],
-                markerfacecolor='None',
-                markeredgecolor=colors[target_values[sample_idx] - 1],
-                markersize=8,
-                markeredgewidth=1
-            )
-
-        bmu_x = []
-        bmu_y = []
-
-        for sample_idx, sample in enumerate(dataset_copy):
-
-            sample_mask = mask_copy[sample_idx]
-
-            bmu = self.winning_neuron(
-                sample,
-                mask_flag=True,
-                mm=sample_mask
-            )
-
-            bmu_x.append(bmu[0])
-            bmu_y.append(bmu[1])
-
-        bmu_x = np.array(bmu_x)
-        bmu_y = np.array(bmu_y)
-
-        for class_id in np.unique(target_values):
-
-            class_mask = target_values == class_id
-
-            plt.scatter(
-                bmu_x[class_mask] + 0.5 +
-                (np.random.rand(np.sum(class_mask)) - 0.5) * 0.8,
-
-                bmu_y[class_mask] + 0.5 +
-                (np.random.rand(np.sum(class_mask)) - 0.5) * 0.8,
-
-                s=50,
-                c=colors[class_id - 1],
-                label=labels[class_id]
-            )
-
-    else:
 
         for sample_idx, sample in enumerate(dataset_copy):
 
@@ -330,7 +271,6 @@ def plot_umat_map_target(self,
         fontsize=30
     )
 
-    if not mask_flag:
 
         for row in range(1, n_neurons):
             plt.axhline(
