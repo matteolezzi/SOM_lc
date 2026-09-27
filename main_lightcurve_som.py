@@ -172,6 +172,7 @@ def plot_umat_map_target(self,
     colorbar.ax.tick_params(labelsize=30)
 
     # Disegno dei marker sulle BMU
+    #prova prima a calcolare su GPU, quindi su piattaforma CUDA, se non è presente una scheda grafica sulla macchina allora si fa su CPU
     for sample_idx, sample in enumerate(dataset_copy):
 
         try:
@@ -197,7 +198,7 @@ def plot_umat_map_target(self,
 
     bmu_x = []
     bmu_y = []
-
+    #questo è ridondante, le coordinate si possono prendere già prima
     for sample in dataset_copy:
 
         try:
@@ -220,6 +221,7 @@ def plot_umat_map_target(self,
         class_mask = target_values == class_id
 
         label_index = class_names.index(class_id)
+        #cioé vengono selezionati solo gli oggetti di una determinata classe
 
         plt.scatter(
             bmu_x[class_mask] + 0.5 +
@@ -237,10 +239,11 @@ def plot_umat_map_target(self,
         loc='upper right',
         prop={'size': 30}
     )
-
+    #imposta i tick degli assi ogni 1/5 della griglia
     x_tick_positions = (
         np.arange(0, n_neurons, n_neurons // 5) + 0.5
     )
+    #parte da 1 
 
     x_tick_labels = (
         np.arange(0, n_neurons, n_neurons // 5) + 1
@@ -265,6 +268,7 @@ def plot_umat_map_target(self,
         y_tick_labels,
         fontsize=30
     )
+    #disegna delle sottili linee bianche orizzontali e verticali
 
     for row in range(1, n_neurons):
         plt.axhline(
