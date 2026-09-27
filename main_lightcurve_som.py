@@ -315,6 +315,7 @@ def make_probability_map(self, n_neurons, m_neurons, data, target, labels):
     for label in label_list:
         # Si crea una mappa di prob inizializzata a zero con la dimensione dei neuroni
         ProbabilityMap_label = np.zeros((n_neurons, m_neurons))
+
         # per ogni neurone (se sono presenti oggetti) si prende il numero e tipo di oggetti
         for i in range(0, n_neurons):
             for j in range(0, m_neurons):
@@ -328,11 +329,15 @@ def make_probability_map(self, n_neurons, m_neurons, data, target, labels):
                     tot_elements = self.get_data_exploded(data_exploded, coord, 'Total')
 
                     ProbabilityMap_label[i, j] = num_elements / float(tot_elements) * 100
-                    max_val = np.max(ProbabilityMap_label)
 
-                    if max_val > 0:
-                        ProbabilityMap_label = ProbabilityMap_label / max_val * 100
+        # Normalizzazione fatta UNA SOLA VOLTA, dopo aver riempito tutta la mappa
+        #si normalizza per avere tutti i valori scalati sul massimo, che potrebbe non essere il 100&
+        max_val = np.max(ProbabilityMap_label)
+        if max_val > 0:
+            ProbabilityMap_label = ProbabilityMap_label / max_val * 100
+
         ProbabilityMapDict[label] = ProbabilityMap_label
+
     return ProbabilityMapDict
 
 
