@@ -505,10 +505,12 @@ for cl in label_names:
 # ============================================================
 
 N_MAG_POINTS = 30
+#crea un generatore di numeri casuali con seed fisso
 rng = np.random.default_rng(18)
 
 for target_class in ["RRc", "Cep"]:
-
+    #np.where resistuisce gli indiici dove il valore è True, restituisce una tupla 1D
+    #quindi si prende il primo ( e unico) array
     indices = np.where(target_train.values == target_class)[0]
 
     if len(indices) == 0:
@@ -517,15 +519,17 @@ for target_class in ["RRc", "Cep"]:
 
     n_examples = min(5, len(indices))
     selected = rng.choice(indices, size=n_examples, replace=False)
-
+    #axes è di solito un array numpy che contiene tutti i sistemi di assi dei subplot
     fig, axes = plt.subplots(
         n_examples,
         1,
         figsize=(10, 2.5 * n_examples)
     )
-
+    
     if n_examples == 1:
         axes = [axes]
+        
+    #zip viene usata per unire più oggetti iterabili
 
     for ax, idx in zip(axes, selected):
 
