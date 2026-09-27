@@ -543,31 +543,14 @@ def compute_completeness_purity(y_true, y_pred, labels, probs, prb_thr):
         TP_tot += TP
         FP_tot += FP
         FN_tot += FN
-
-    # --- Micro-average: somma di TP/FP/FN su tutte le classi ---
-    completezza_tot = TP_tot / (TP_tot + FN_tot) if (TP_tot + FN_tot) > 0 else 0.0
-    purezza_tot = TP_tot / (TP_tot + FP_tot) if (TP_tot + FP_tot) > 0 else 0.0
-
-    results['tot'] = {
-        'completezza': completezza_tot,
-        'purezza': purezza_tot,
-        'TP': int(TP_tot),
-        'FP': int(FP_tot),
-        'FN': int(FN_tot),
-    }
+    
 
     return results
 
 
-# completezza e purezza totale
-# fare anche per train
-
-# verificare se il periodo della simulazione e di decam sono differenti
-# poi verificare curve di luce
-# plottare distribuzione dei periodi per simulazione e per decam
 results = compute_completeness_purity(target_early, early_predictions, label_names, early_probs, 70)
 for cl in label_names:
-    results[cl]
+    print(cl,results[cl])
 
 
 # ============================================================
